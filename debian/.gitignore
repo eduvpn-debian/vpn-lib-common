@@ -3,3 +3,4 @@ files
 *.debhelper.log
 *.substvars
 php-vpn-lib-common
+php-eduvpn-common
