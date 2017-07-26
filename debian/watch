@@ -2,5 +2,5 @@
 version=3
 
 opts=filenamemangle=s/.+\/v?(\d\S+)\.tar\.gz/vpn-lib-common-$1\.tar\.gz/ \
-  https://github.com/eduvpn/vpn-lib-common/tags .*/?(\d\S+)\.tar\.gz
+  https://github.com/eduvpn/vpn-lib-common/tags .*/v?(\d\S+)\.tar\.gz
 
