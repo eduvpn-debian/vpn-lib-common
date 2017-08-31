@@ -12,7 +12,7 @@ Vcs-Git: git://github.com/eduvpn-debian/vpn-lib-common.git
 Vcs-Browser: https://github.com/eduvpn-debian/vpn-lib-common/
 
 Package: php-eduvpn-common
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends}, ${phpcomposer:Debian-require}, php-symfony-translation
 Suggests: ${phpcomposer:Debian-suggest}
 Description: Common VPN library
