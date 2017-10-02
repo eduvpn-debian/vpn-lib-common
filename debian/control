@@ -13,7 +13,25 @@ Vcs-Browser: https://github.com/eduvpn-debian/vpn-lib-common/
 
 Package: php-eduvpn-common
 Architecture: all
-Depends: ${misc:Depends}, ${phpcomposer:Debian-require}, php-symfony-translation
+Depends:
+ ${misc:Depends},
+# ${phpcomposer:Debian-dependes}  # disabled
+# pkg-php-tools has problems with _ in php packages
+# manually listing dependencies:
+ php-common,
+ php-curl,
+ php-json,
+ php-mbstring,
+ php-fkooman-secookie,
+ php-ircmaxell-password-compat,
+ php-paragonie-constant-time-encoding,
+ php-paragonie-random-compat,
+ php-common,
+ php-psr-log,
+ php-symfony-polyfill-php56,
+ php-twig,
+ php-twig-extensions,
+ php-symfony-translation
 Suggests: ${phpcomposer:Debian-suggest}
 Description: Common VPN library
 
