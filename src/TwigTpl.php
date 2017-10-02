@@ -34,6 +34,8 @@ class TwigTpl implements TplInterface
      *
      * @param array  $templateDirs template directories to look in where later
      *                             paths override the earlier paths
+     * @param string $localeDir
+     * @param string $appName
      * @param string $cacheDir     the writable directory to store the cache
      */
     public function __construct(array $templateDirs, $localeDir, $appName, $cacheDir = null)
@@ -70,11 +72,17 @@ class TwigTpl implements TplInterface
         $this->defaultVariables = [];
     }
 
+    /**
+     * @return void
+     */
     public function setDefault(array $templateVariables)
     {
         $this->defaultVariables = $templateVariables;
     }
 
+    /**
+     * @return void
+     */
     public function addDefault(array $templateVariables)
     {
         $this->defaultVariables = array_merge(
@@ -82,6 +90,12 @@ class TwigTpl implements TplInterface
         );
     }
 
+    /**
+     * @param string $languageStr
+     * @param string $localeDir
+     *
+     * @return void
+     */
     public function setI18n($languageStr, $localeDir)
     {
         putenv(sprintf('LC_ALL=%s', $languageStr));
@@ -105,6 +119,9 @@ class TwigTpl implements TplInterface
         $this->twig->addExtension(new Twig_Extensions_Extension_I18n());
     }
 
+    /**
+     * @return void
+     */
     public function addFilter(Twig_SimpleFilter $filter)
     {
         $this->twig->addFilter($filter);
@@ -128,10 +145,10 @@ class TwigTpl implements TplInterface
             $uiLanguage = array_keys($this->defaultVariables['supportedLanguages'])[0];
         }
 
-        if (array_key_exists('uiLanguage', $_COOKIE)) {
+        if (array_key_exists('ui_lang', $_COOKIE)) {
             if (array_key_exists('supportedLanguages', $this->defaultVariables)) {
-                if (array_key_exists($_COOKIE['uiLanguage'], $this->defaultVariables['supportedLanguages'])) {
-                    $uiLanguage = $_COOKIE['uiLanguage'];
+                if (array_key_exists($_COOKIE['ui_lang'], $this->defaultVariables['supportedLanguages'])) {
+                    $uiLanguage = $_COOKIE['ui_lang'];
                 }
             }
         }

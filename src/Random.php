@@ -9,12 +9,19 @@
 
 namespace SURFnet\VPN\Common;
 
+use ParagonIE\ConstantTime\Hex;
+
 class Random implements RandomInterface
 {
+    /**
+     * @param int $length
+     *
+     * @return string
+     */
     public function get($length)
     {
-        return \Sodium\bin2hex(
-            \Sodium\randombytes_buf($length)
+        return Hex::encode(
+            random_bytes($length)
         );
     }
 }

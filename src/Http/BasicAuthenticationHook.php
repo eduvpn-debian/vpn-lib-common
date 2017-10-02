@@ -19,17 +19,23 @@ class BasicAuthenticationHook implements BeforeHookInterface
     /** @var string */
     private $realm;
 
+    /**
+     * @param string $realm
+     */
     public function __construct(array $userPass, $realm = 'Protected Area')
     {
         $this->userPass = $userPass;
         $this->realm = $realm;
     }
 
+    /**
+     * @return string
+     */
     public function executeBefore(Request $request, array $hookData)
     {
         $authUser = $request->getHeader('PHP_AUTH_USER', false);
         $authPass = $request->getHeader('PHP_AUTH_PW', false);
-        if (is_null($authUser) || is_null($authPass)) {
+        if (null === $authUser || null === $authPass) {
             throw new HttpException(
                 'missing authentication information',
                 401,
@@ -38,7 +44,7 @@ class BasicAuthenticationHook implements BeforeHookInterface
         }
 
         if (array_key_exists($authUser, $this->userPass)) {
-            if (0 === \Sodium\compare($authPass, $this->userPass[$authUser])) {
+            if (hash_equals($authPass, $this->userPass[$authUser])) {
                 return $authUser;
             }
         }
