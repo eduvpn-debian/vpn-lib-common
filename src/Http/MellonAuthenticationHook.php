@@ -38,6 +38,11 @@ class MellonAuthenticationHook implements BeforeHookInterface
     /** @var array|null */
     private $entitlementAuthorization = null;
 
+    /**
+     * @param SessionInterface $session
+     * @param string           $userIdAttribute
+     * @param bool             $addEntityId
+     */
     public function __construct(SessionInterface $session, $userIdAttribute, $addEntityId)
     {
         $this->session = $session;
@@ -45,11 +50,19 @@ class MellonAuthenticationHook implements BeforeHookInterface
         $this->addEntityId = $addEntityId;
     }
 
+    /**
+     * @return void
+     */
     public function enableUserIdAuthorization(array $userIdAuthorization)
     {
         $this->userIdAuthorization = $userIdAuthorization;
     }
 
+    /**
+     * @param string $entitlementAttribute
+     *
+     * @return void
+     */
     public function enableEntitlementAuthorization($entitlementAttribute, array $entitlementAuthorization)
     {
         $this->entitlementAttribute = $entitlementAttribute;
@@ -89,9 +102,12 @@ class MellonAuthenticationHook implements BeforeHookInterface
         return $userId;
     }
 
+    /**
+     * @return bool
+     */
     private function verifyAuthorization(Request $request)
     {
-        if (is_null($this->userIdAuthorization) && is_null($this->entitlementAuthorization)) {
+        if (null === $this->userIdAuthorization && null === $this->entitlementAuthorization) {
             // authorization disabled, allow user
             return true;
         }
@@ -108,9 +124,12 @@ class MellonAuthenticationHook implements BeforeHookInterface
         return false;
     }
 
+    /**
+     * @return bool
+     */
     private function verifyUserIdAuthorization(Request $request)
     {
-        if (is_null($this->userIdAuthorization)) {
+        if (null === $this->userIdAuthorization) {
             return false;
         }
 
@@ -120,12 +139,15 @@ class MellonAuthenticationHook implements BeforeHookInterface
             $request->getHeader($this->userIdAttribute)
         );
 
-        return in_array($userId, $this->userIdAuthorization);
+        return in_array($userId, $this->userIdAuthorization, true);
     }
 
+    /**
+     * @return bool
+     */
     private function verifyEntitlementAuthorization(Request $request)
     {
-        if (is_null($this->entitlementAuthorization)) {
+        if (null === $this->entitlementAuthorization || null === $this->entitlementAttribute) {
             return false;
         }
 
@@ -134,7 +156,7 @@ class MellonAuthenticationHook implements BeforeHookInterface
         $entitlementList = explode(';', $entitlementValue);
         foreach ($entitlementList as $entitlement) {
             $entitlementCheck = sprintf('%s|%s', $entityID, $entitlement);
-            if (in_array($entitlementCheck, $this->entitlementAuthorization)) {
+            if (in_array($entitlementCheck, $this->entitlementAuthorization, true)) {
                 return true;
             }
         }

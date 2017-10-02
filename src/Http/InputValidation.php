@@ -15,6 +15,8 @@ use SURFnet\VPN\Common\Http\Exception\InputValidationException;
 class InputValidation
 {
     /**
+     * @param string $displayName
+     *
      * @return string
      */
     public static function displayName($displayName)
@@ -29,6 +31,8 @@ class InputValidation
     }
 
     /**
+     * @param string $commonName
+     *
      * @return string
      */
     public static function commonName($commonName)
@@ -41,6 +45,8 @@ class InputValidation
     }
 
     /**
+     * @param string $serverCommonName
+     *
      * @return string
      */
     public static function serverCommonName($serverCommonName)
@@ -53,6 +59,8 @@ class InputValidation
     }
 
     /**
+     * @param string $profileId
+     *
      * @return string
      */
     public static function profileId($profileId)
@@ -65,6 +73,8 @@ class InputValidation
     }
 
     /**
+     * @param string $instanceId
+     *
      * @return string
      */
     public static function instanceId($instanceId)
@@ -77,12 +87,14 @@ class InputValidation
     }
 
     /**
+     * @param string $languageCode
+     *
      * @return string
      */
     public static function languageCode($languageCode)
     {
         $supportedLanguages = ['en_US', 'nl_NL', 'de_DE', 'fr_FR'];
-        if (!in_array($languageCode, $supportedLanguages)) {
+        if (!in_array($languageCode, $supportedLanguages, true)) {
             throw new InputValidationException('invalid "language_code"');
         }
 
@@ -90,6 +102,8 @@ class InputValidation
     }
 
     /**
+     * @param string $totpSecret
+     *
      * @return string
      */
     public static function totpSecret($totpSecret)
@@ -102,6 +116,8 @@ class InputValidation
     }
 
     /**
+     * @param string $yubiKeyOtp
+     *
      * @return string
      */
     public static function yubiKeyOtp($yubiKeyOtp)
@@ -114,6 +130,8 @@ class InputValidation
     }
 
     /**
+     * @param string $totpKey
+     *
      * @return string
      */
     public static function totpKey($totpKey)
@@ -126,6 +144,8 @@ class InputValidation
     }
 
     /**
+     * @param string $clientId
+     *
      * @return string
      */
     public static function clientId($clientId)
@@ -138,21 +158,9 @@ class InputValidation
     }
 
     /**
-     * @return string
-     */
-    public static function userId($userId)
-    {
-        if (1 !== preg_match('/^[a-zA-Z0-9-_.|@]+$/', $userId)) {
-            throw new InputValidationException('invalid "user_id"');
-        }
-
-        return $userId;
-    }
-
-    /**
      * @param string $dateTime
      *
-     * @return DateTime
+     * @return \DateTime
      */
     public static function dateTime($dateTime)
     {
@@ -164,6 +172,22 @@ class InputValidation
     }
 
     /**
+     * @param string $userId
+     *
+     * @return string
+     */
+    public static function userId($userId)
+    {
+        // NOP
+        // XXX remove in next major release, we accept all UTF-8 characters
+        // now for userIds
+
+        return $userId;
+    }
+
+    /**
+     * @param string $ipAddress
+     *
      * @return string
      */
     public static function ipAddress($ipAddress)
@@ -177,6 +201,8 @@ class InputValidation
     }
 
     /**
+     * @param string $ip4
+     *
      * @return string
      */
     public static function ip4($ip4)
@@ -189,6 +215,8 @@ class InputValidation
     }
 
     /**
+     * @param string $ip6
+     *
      * @return string
      */
     public static function ip6($ip6)
@@ -202,42 +230,50 @@ class InputValidation
     }
 
     /**
+     * @param string $connectedAt
+     *
      * @return int
      */
     public static function connectedAt($connectedAt)
     {
-        if (!is_numeric($connectedAt) || 0 > intval($connectedAt)) {
+        if (!is_numeric($connectedAt) || 0 > (int) $connectedAt) {
             throw new InputValidationException('invalid "connected_at"');
         }
 
-        return intval($connectedAt);
+        return (int) $connectedAt;
     }
 
     /**
+     * @param string $disconnectedAt
+     *
      * @return int
      */
     public static function disconnectedAt($disconnectedAt)
     {
-        if (!is_numeric($disconnectedAt) || 0 > intval($disconnectedAt)) {
+        if (!is_numeric($disconnectedAt) || 0 > (int) $disconnectedAt) {
             throw new InputValidationException('invalid "disconnected_at"');
         }
 
-        return intval($disconnectedAt);
+        return (int) $disconnectedAt;
     }
 
     /**
+     * @param string $bytesTransferred
+     *
      * @return int
      */
     public static function bytesTransferred($bytesTransferred)
     {
-        if (!is_numeric($bytesTransferred) || 0 > intval($bytesTransferred)) {
+        if (!is_numeric($bytesTransferred) || 0 > (int) $bytesTransferred) {
             throw new InputValidationException('invalid "bytes_transferred"');
         }
 
-        return intval($bytesTransferred);
+        return (int) $bytesTransferred;
     }
 
     /**
+     * @param string $twoFactorType
+     *
      * @return string
      */
     public static function twoFactorType($twoFactorType)
@@ -250,6 +286,8 @@ class InputValidation
     }
 
     /**
+     * @param string $twoFactorValue
+     *
      * @return string
      */
     public static function twoFactorValue($twoFactorValue)
@@ -262,6 +300,8 @@ class InputValidation
     }
 
     /**
+     * @param string $messageId
+     *
      * @return int
      */
     public static function messageId($messageId)
@@ -274,6 +314,8 @@ class InputValidation
     }
 
     /**
+     * @param string $messageType
+     *
      * @return string
      */
     public static function messageType($messageType)
