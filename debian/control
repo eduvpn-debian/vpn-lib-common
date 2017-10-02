@@ -2,10 +2,26 @@ Source: vpn-lib-common
 Section: web
 Priority: optional
 Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
-Build-Depends: debhelper (>= 9), phpunit, phpab, php-psr-log,
- php-fkooman-secookie, php-twig, php-ircmaxell-password-compat, php-mbstring,
- php-libsodium, pkg-php-tools, php-twig-extensions, php-symfony-translation,
- php-symfony-phpunit-bridge
+Build-Depends: debhelper (>= 9),
+ phpunit,
+ phpab,
+ pkg-php-tools,
+ php-psr-log,
+ php-fkooman-secookie,
+ php-twig,
+ php-twig-extensions,
+ php-ircmaxell-password-compat,
+ php-mbstring,
+ php-libsodium,
+ php-symfony-translation,
+ php-symfony-phpunit-bridge,
+ php-common,
+ php-curl,
+ php-json,
+ php-fkooman-secookie,
+ php-paragonie-constant-time-encoding,
+ php-paragonie-random-compat,
+ php-symfony-polyfill-php56,
 Standards-Version: 3.9.8
 Homepage: https://github.com/eduvpn/vpn-lib-common
 Vcs-Git: git://github.com/eduvpn-debian/vpn-lib-common.git
