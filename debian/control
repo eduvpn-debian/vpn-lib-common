@@ -1,5 +1,5 @@
 Source: vpn-lib-common
-Section: web
+Section: php
 Priority: optional
 Maintainer: Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>
 Build-Depends: debhelper (>= 9),
@@ -50,4 +50,4 @@ Depends:
  php-symfony-translation
 Suggests: ${phpcomposer:Debian-suggest}
 Description: Common VPN library
-
+ VPN related code shared between eduVPN projects.
